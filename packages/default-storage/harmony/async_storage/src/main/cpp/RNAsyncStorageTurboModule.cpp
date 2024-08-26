@@ -29,27 +29,27 @@ using namespace rnoh;
 using namespace facebook;
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_multiGet(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "multiGet", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "multiGet", args, count);
 }
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_multiSet(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "multiSet", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "multiSet", args, count);
 }
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_multiRemove(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "multiRemove", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "multiRemove", args, count);
 }
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_multiMerge(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "multiMerge", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "multiMerge", args, count);
 }
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_getAllKeys(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "getAllKeys", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "getAllKeys", args, count);
 }
 
 static jsi::Value __hostFunction_RNAsyncStorageTurboModule_clear(jsi::Runtime &rt, react::TurboModule &turboModule, const jsi::Value *args, size_t count) {
-    return static_cast<ArkTSTurboModule &>(turboModule).call(rt, "clear", args, count);
+    return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, "clear", args, count);
 }
 
 RNAsyncStorageTurboModule::RNAsyncStorageTurboModule(const ArkTSTurboModule::Context ctx, const std::string name)

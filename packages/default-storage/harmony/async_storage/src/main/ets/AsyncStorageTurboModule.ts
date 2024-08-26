@@ -49,12 +49,13 @@ export class AsyncStorageTurboModule extends TurboModule {
    * Given an array of keys, this returns a map of (key, value) pairs for the keys found, and
    * (key, null) for the keys that haven't been found.
    */
-  multiGet(keys: string[], callback: (error?: Object, result?: [string, string][] | null) => void) {
+  multiGet(keys: string[], callback: (error?: Object, result?: [string, string][] | null) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module multiGet() Call!`);
     this.runMultiGet(keys).then((result) => { callback(result[0], result[1]) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module multiGet() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module multiGet() End!`);
+    return Promise.resolve();
   }
 
   async runMultiGet(keys: string[]): Promise<[Object, [string, string][] | null]> {
@@ -129,12 +130,13 @@ export class AsyncStorageTurboModule extends TurboModule {
    * return AsyncLocalStorageFailure, but all other pairs will have been inserted.
    * The insertion will replace conflicting (key, value) pairs.
    */
-  multiSet(keyValueArray: [string, string][], callback: (error?: Object) => void) {
+  multiSet(keyValueArray: [string, string][], callback: (error?: Object) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module multiSet() Call!`);
     this.runMultiSet(keyValueArray).then((error) => { callback(error) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module multiSet() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module multiSet() End!`);
+    return Promise.resolve();
   }
 
   async runMultiSet(keyValueArray: [string, string][], hasError = false): Promise<Object> {
@@ -200,7 +202,7 @@ export class AsyncStorageTurboModule extends TurboModule {
         }
       }
     }
-    if(error !== null) {
+    if (error !== null) {
       return error;
     } else {
       return null;
@@ -210,12 +212,13 @@ export class AsyncStorageTurboModule extends TurboModule {
   /** 
    * Removes all rows of the keys given.
    */
-  multiRemove(keys: string[], callback: (error?:Object) => void) {
+  multiRemove(keys: string[], callback: (error?: Object) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module multiRemove() Call!`);
-    this.runMultiRemove(keys).then((error)=>{callback(error)}).catch((e:Error)=>{
+    this.runMultiRemove(keys).then((error) => { callback(error) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module multiRemove() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module multiRemove() End!`);
+    return Promise.resolve();
   }
 
   async runMultiRemove(keys: string[]): Promise<Object> {
@@ -237,7 +240,7 @@ export class AsyncStorageTurboModule extends TurboModule {
 
   async asyncMultiRemove(keys: string[]): Promise<Object> {
     Logger.debug(CommonConstants.TAG, `ModuleSub asyncMultiRemove() Call!`);
-    if(keys.length === 0) {
+    if (keys.length === 0) {
       return null;
     }
     if (!await this.table.ensureDatabase(this.ctx.uiAbilityContext)) {
@@ -269,12 +272,13 @@ export class AsyncStorageTurboModule extends TurboModule {
    * Given an array of (key, value) pairs, this will merge the given values with the stored values
    * of the given keys, if they exist.
    */
-  multiMerge(keyValueArray: [string, string][], callback: (error?: Object) => void) {
+  multiMerge(keyValueArray: [string, string][], callback: (error?: Object) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module multiMerge() Call!`);
-    this.runMultiMerge(keyValueArray).then((error)=>{callback(error)}).catch((e:Error)=>{
+    this.runMultiMerge(keyValueArray).then((error) => { callback(error) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module multiMerge() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module multiMerge() End!`);
+    return Promise.resolve();
   }
 
   async runMultiMerge(keyValueArray: [string, string][]): Promise<Object> {
@@ -314,7 +318,7 @@ export class AsyncStorageTurboModule extends TurboModule {
           error = AsyncStorageErrorUtil.getInvalidValueError(null)
           return error;
         }
-        if(!await AsyncLocalStorageUtil.mergeImpl(this.table.rdbStore, keyValueArray[idx][0], keyValueArray[idx][1])){
+        if (!await AsyncLocalStorageUtil.mergeImpl(this.table.rdbStore, keyValueArray[idx][0], keyValueArray[idx][1])) {
           error = AsyncStorageErrorUtil.getDBError(null)
           return error;
         }
@@ -322,8 +326,8 @@ export class AsyncStorageTurboModule extends TurboModule {
     } catch (e) {
       Logger.warn(CommonConstants.TAG, e.message);
       error = AsyncStorageErrorUtil.getError(null, e.message);
-    } 
-    if(error != null) {
+    }
+    if (error != null) {
       return error;
     } else {
       return null;
@@ -333,12 +337,13 @@ export class AsyncStorageTurboModule extends TurboModule {
   /** 
    * Clears the database.
    */
-  clear(callback: (error?: Object) => void) {
+  clear(callback: (error?: Object) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module clear() Call!`);
-    this.runClear().then((error)=>{callback(error)}).catch((e:Error)=>{
+    this.runClear().then((error) => { callback(error) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module clear() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module clear() End!`);
+    return Promise.resolve();
   }
 
   async runClear(): Promise<Object> {
@@ -375,12 +380,13 @@ export class AsyncStorageTurboModule extends TurboModule {
   /** 
    * Returns an array with all keys from the database.
    */
-  getAllKeys(callback: (error?: Object, result?: string[] | null) => void) {
+  getAllKeys(callback: (error?: Object, result?: string[] | null) => void): Promise<void> {
     Logger.debug(CommonConstants.TAG, `Module getAllKeys() Call!`);
-    this.runGetAllKeys().then((result)=>{callback(result[0], result[1])}).catch((e:Error)=>{
+    this.runGetAllKeys().then((result) => { callback(result[0], result[1]) }).catch((e: Error) => {
       Logger.debug(CommonConstants.TAG, `Module getAllKeys() Call Fail!${e.message}`);
     })
     Logger.debug(CommonConstants.TAG, `Module getAllKeys() End!`);
+    return Promise.resolve();
   }
 
   async runGetAllKeys(): Promise<[Object, string[] | null]> {
@@ -410,14 +416,14 @@ export class AsyncStorageTurboModule extends TurboModule {
     predicates.isNotNull(ReactDatabaseSupplier.KEY_COLUMN);
     let cursor = await this.table.rdbStore.query(predicates);
     try {
-      if(cursor.goToFirstRow()){
+      if (cursor.goToFirstRow()) {
         do {
           data.push(cursor.getString(cursor.getColumnIndex('KEY')));
         } while (cursor.goToNextRow())
       }
     } catch (e) {
       Logger.warn(CommonConstants.TAG, `Module GetAllKeys() error: ${e.message}`);
-      return [AsyncStorageErrorUtil.getError(null, e.message),null];
+      return [AsyncStorageErrorUtil.getError(null, e.message), null];
     } finally {
       cursor.close();
     }
