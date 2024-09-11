@@ -22,13 +22,13 @@
  * SOFTWARE.
  */
 
-import { RNPackage, TurboModulesFactory } from '@rnoh/react-native-openharmony/ts';
-import type { TurboModule, TurboModuleContext } from '@rnoh/react-native-openharmony/ts';
+import { RNPackage,WorkerTurboModuleFactory } from '@rnoh/react-native-openharmony/ts';
+import type { WorkerTurboModule,WorkerTurboModuleContext } from '@rnoh/react-native-openharmony/ts';
 import { AsyncStorageTurboModule } from './AsyncStorageTurboModule';
 
-class AsyncStorageTurboModulesFactory extends TurboModulesFactory {
+class AsyncStorageTurboModulesFactory extends WorkerTurboModuleFactory {
 
-  createTurboModule(name: string): TurboModule | null {
+  createTurboModule(name: string): WorkerTurboModule | null {
     if (name === 'RNCAsyncStorage') {
       return new AsyncStorageTurboModule(this.ctx);
     }
@@ -41,7 +41,7 @@ class AsyncStorageTurboModulesFactory extends TurboModulesFactory {
 }
 
 export class AsyncStoragePackage extends RNPackage {
-  createTurboModulesFactory(ctx: TurboModuleContext): TurboModulesFactory {
+  createWorkerTurboModuleFactory(ctx: WorkerTurboModuleContext): WorkerTurboModuleFactory{
     return new AsyncStorageTurboModulesFactory(ctx);
   }
 }
