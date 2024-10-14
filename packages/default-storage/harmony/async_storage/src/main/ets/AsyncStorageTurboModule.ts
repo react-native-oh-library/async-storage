@@ -22,9 +22,8 @@
  * SOFTWARE.
  */
 
-import relationalStore from '@ohos.data.relationalStore'
-import taskpool from '@ohos.taskpool';
-import { TurboModule, TurboModuleContext } from '@rnoh/react-native-openharmony/ts';
+import relationalStore from '@ohos.data.relationalStore';
+import { AnyThreadTurboModule, AnyThreadTurboModuleContext } from '@rnoh/react-native-openharmony/ts';
 import ReactDatabaseSupplier from './ReactDatabaseSupplier';
 import AsyncStorageErrorUtil from './AsyncStorageErrorUtil';
 import Logger from './Logger';
@@ -34,12 +33,12 @@ import AsyncLocker from './AsyncLocker'
 
 const MAX_SQL_KEYS = 999;
 
-export class AsyncStorageTurboModule extends TurboModule {
+export class AsyncStorageTurboModule extends AnyThreadTurboModule {
 
   private table = new ReactDatabaseSupplier()
   private lock: AsyncLocker = new AsyncLocker()
 
-  constructor(ctx: TurboModuleContext) {
+  constructor(ctx: AnyThreadTurboModuleContext) {
     super(ctx);
     Logger.debug(CommonConstants.TAG, `AsyncStorageTurboModule construct!`);
     this.table.initialRdbStore(this.ctx.uiAbilityContext);
